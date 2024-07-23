@@ -1,40 +1,99 @@
-[INFO][2024-07-19 19:57:57,042] PRAISE-PEK: --------------START--------------
-[DEBUG][2024-07-19 19:57:57,941] PRAISE-PEK: Read sheet "dev9507E210300042" in 0.6841409206390381 seconds
-[DEBUG][2024-07-19 19:57:58,709] PRAISE-PEK: Read sheet "dev9507E210300024" in 0.7671220302581787 seconds
-[DEBUG][2024-07-19 19:57:59,534] PRAISE-PEK: Read sheet "dev9507E210300035" in 0.8242232799530029 seconds
-[DEBUG][2024-07-19 19:58:00,372] PRAISE-PEK: Read sheet "dev9507E210300034" in 0.8367776870727539 seconds
-[INFO][2024-07-19 19:58:00,373] PRAISE-PEK: Unpacked PEK data in 3.3302536010742188 seconds
-[INFO][2024-07-19 19:58:00,397] PRAISE-PEK: Unpacked PRAISE data in 0.023515939712524414 seconds
-[INFO][2024-07-19 19:58:00,516] PRAISE-PEK: Cleaned PRAISE data in 0.10985732078552246 seconds and removed 1136/3034 indices
-[DEBUG][2024-07-19 19:58:00,543] PRAISE-PEK: Current backend is TkAgg
-[DEBUG][2024-07-19 19:58:00,685] PRAISE-PEK: TextBox "xTicks (max 1.0)" successfully created with location=[0.08, 0.02, 0.05, 0.03], submit_function=<function xticks_submitted at 0x000001C96EDBBA60>, label_pos='top'
-[DEBUG][2024-07-19 19:58:00,692] PRAISE-PEK: TextBox "start (): yyyy-mm-dd hh:mm:ss" successfully created with location=[0.08, 0.4, 0.1, 0.03], submit_function=<function start_date_limit_submitted at 0x000001C943F0A200>, label_pos='top'
-[DEBUG][2024-07-19 19:58:00,697] PRAISE-PEK: TextBox "end (): yyyy-mm-dd hh:mm:ss" successfully created with location=[0.2, 0.4, 0.1, 0.03], submit_function=<function end_date_limit_submitted at 0x000001C96D864C20>, label_pos='top'
-[DEBUG][2024-07-19 19:58:00,701] PRAISE-PEK: Button "Update All" successfully created with location=[0.9349999999999999, 0.4, 0.045, 0.03], clicked_function=<function update_all at 0x000001C9703471A0>
-[DEBUG][2024-07-19 19:58:00,705] PRAISE-PEK: Button "Export PEK Data" successfully created with location=[0.9349999999999999, 0.45, 0.045, 0.03], clicked_function=<function update_all at 0x000001C9703471A0>
-[DEBUG][2024-07-19 19:58:00,710] PRAISE-PEK: Button "Paste Clicked X" successfully created with location=[0.1, 0.34, 0.05999999999999999, 0.030000000000000027], clicked_function=<function paste_x_start_limit_pressed at 0x000001C970346A20>
-[DEBUG][2024-07-19 19:58:00,716] PRAISE-PEK: Button "Paste Clicked X" successfully created with location=[0.22, 0.34, 0.06000000000000003, 0.030000000000000027], clicked_function=<function paste_x_end_limit_pressed at 0x000001C970346AC0>
-[DEBUG][2024-07-19 19:58:00,726] PRAISE-PEK: Button "PEK 42" successfully created with location=[0.9349999999999999, 0.02, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_PEK_button.clicked of <__main__.setup_plots.<locals>.create_PEK_button object at 0x000001C971F1B110>>
-[INFO][2024-07-19 19:58:00,726] PRAISE-PEK: Button "PEK 42" was toggled to True
-[DEBUG][2024-07-19 19:58:00,730] PRAISE-PEK: Button "PEK 24" successfully created with location=[0.9349999999999999, 0.06, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_PEK_button.clicked of <__main__.setup_plots.<locals>.create_PEK_button object at 0x000001C971BCA9D0>>
-[DEBUG][2024-07-19 19:58:00,736] PRAISE-PEK: Button "PEK 35" successfully created with location=[0.9349999999999999, 0.1, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_PEK_button.clicked of <__main__.setup_plots.<locals>.create_PEK_button object at 0x000001C9724B7DD0>>
-[INFO][2024-07-19 19:58:00,736] PRAISE-PEK: Button "PEK 35" was toggled to True
-[DEBUG][2024-07-19 19:58:00,742] PRAISE-PEK: Button "PEK 34" successfully created with location=[0.9349999999999999, 0.13999999999999999, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_PEK_button.clicked of <__main__.setup_plots.<locals>.create_PEK_button object at 0x000001C971CBE750>>
-[DEBUG][2024-07-19 19:58:00,745] PRAISE-PEK: Button "PM2_5" successfully created with location=[0.02, 0.02, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001C971CBC590>>
-[DEBUG][2024-07-19 19:58:00,750] PRAISE-PEK: Button "PM10" successfully created with location=[0.02, 0.06, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001C971D2D8D0>>
-[DEBUG][2024-07-19 19:58:00,754] PRAISE-PEK: Button "PM1" successfully created with location=[0.02, 0.1, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001C971D16D50>>
-[DEBUG][2024-07-19 19:58:00,759] PRAISE-PEK: Button "CO" successfully created with location=[0.02, 0.13999999999999999, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001C97252EE50>>
-[DEBUG][2024-07-19 19:58:00,763] PRAISE-PEK: Button "NO2" successfully created with location=[0.02, 0.18, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001C9725874D0>>
-[DEBUG][2024-07-19 19:58:00,768] PRAISE-PEK: Button "O3" successfully created with location=[0.02, 0.22, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001C971DDB790>>
-[DEBUG][2024-07-19 19:58:00,773] PRAISE-PEK: Button "VOC" successfully created with location=[0.02, 0.26, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001C971E61C10>>
-[DEBUG][2024-07-19 19:58:00,778] PRAISE-PEK: Button "Humidity" successfully created with location=[0.02, 0.30000000000000004, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001C97592E090>>
-[DEBUG][2024-07-19 19:58:00,783] PRAISE-PEK: Button "Temperature" successfully created with location=[0.02, 0.34, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001C97595BD90>>
-[DEBUG][2024-07-19 19:58:00,789] PRAISE-PEK: Button "BatVol" successfully created with location=[0.02, 0.38, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001C9759A1CD0>>
-[DEBUG][2024-07-19 19:58:00,794] PRAISE-PEK: Button "CO2" successfully created with location=[0.02, 0.42000000000000004, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001C9759CBA50>>
-[INFO][2024-07-19 19:58:00,794] PRAISE-PEK: Button "CO2" was toggled to True
-[DEBUG][2024-07-19 19:58:00,798] PRAISE-PEK: Button "NO2_Raw" successfully created with location=[0.02, 0.46, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001C975A0DC10>>
-[INFO][2024-07-19 19:58:00,799] PRAISE-PEK: Setup plot in 0.28301048278808594 seconds
-[DEBUG][2024-07-19 19:58:00,827] PRAISE-PEK: Map subplot updated in 0.028325319290161133 seconds
-[DEBUG][2024-07-19 19:58:01,546] PRAISE-PEK: Data subplot updated in 0.7192955017089844 seconds
-[INFO][2024-07-19 19:58:01,546] PRAISE-PEK: Successfully initiated program in 4.5034871101379395 seconds
-[INFO][2024-07-19 19:58:40,760] PRAISE-PEK: ---------------END---------------
+[INFO][2024-07-23 23:58:04,451] PRAISE-PEK: --------------START--------------
+[DEBUG][2024-07-23 23:58:05,480] PRAISE-PEK: Read sheet "dev9507E210300042" in 0.8456099033355713 seconds
+[DEBUG][2024-07-23 23:58:06,439] PRAISE-PEK: Read sheet "dev9507E210300024" in 0.9584848880767822 seconds
+[DEBUG][2024-07-23 23:58:07,414] PRAISE-PEK: Read sheet "dev9507E210300035" in 0.9755542278289795 seconds
+[DEBUG][2024-07-23 23:58:08,337] PRAISE-PEK: Read sheet "dev9507E210300034" in 0.9230563640594482 seconds
+[INFO][2024-07-23 23:58:08,337] PRAISE-PEK: Unpacked PEK data in 3.886162519454956 seconds
+[INFO][2024-07-23 23:58:08,393] PRAISE-PEK: Unpacked PRAISE data in 0.037689924240112305 seconds
+[INFO][2024-07-23 23:58:08,611] PRAISE-PEK: Cleaned PRAISE data in 0.20949721336364746 seconds and removed 1567/4497 indices
+[INFO][2024-07-23 23:58:08,924] PRAISE-PEK: Simplified PRAISE data in 0.31278371810913086 seconds. 28 low variance coords were found
+[INFO][2024-07-23 23:58:08,940] PRAISE-PEK: Unpacked ADMS data in 0.014688730239868164 seconds. ADMS_data_name_array=['ADMS_pm10_ug_m3', 'ADMS_pm2_5_ug_m3', 'ADMS_no2_ug_m3', 'ADMS_o3_ug_m3', 'ADMS_so2_ug_m3']
+[INFO][2024-07-23 23:58:09,036] PRAISE-PEK: Matched ADMS data in 0.0956881046295166 seconds
+[DEBUG][2024-07-23 23:58:09,063] PRAISE-PEK: Current backend is TkAgg
+[DEBUG][2024-07-23 23:58:09,238] PRAISE-PEK: TextBox "xTicks (max 180.0)" successfully created with location=[0.08, 0.02, 0.05, 0.03], submit_function=<function xticks_submitted at 0x0000015454F43BA0>, label_pos='top'
+[DEBUG][2024-07-23 23:58:09,272] PRAISE-PEK: Start date limit textbox submitted
+[DEBUG][2024-07-23 23:58:09,316] PRAISE-PEK: Map subplot updated in 0.044518470764160156 seconds
+[DEBUG][2024-07-23 23:58:09,346] PRAISE-PEK: Data subplot updated in 0.029109716415405273 seconds
+[DEBUG][2024-07-23 23:58:09,346] PRAISE-PEK: TextBox "start (): yyyy-mm-dd hh:mm:ss" successfully created with location=[0.08, 0.4, 0.1, 0.03], submit_function=<function start_date_limit_submitted at 0x000001542A0EA3E0>, label_pos='top'
+[DEBUG][2024-07-23 23:58:09,480] PRAISE-PEK: End date limit textbox submitted
+[DEBUG][2024-07-23 23:58:09,522] PRAISE-PEK: Map subplot updated in 0.04239463806152344 seconds
+[DEBUG][2024-07-23 23:58:09,553] PRAISE-PEK: Data subplot updated in 0.030681848526000977 seconds
+[DEBUG][2024-07-23 23:58:09,553] PRAISE-PEK: TextBox "end (): yyyy-mm-dd hh:mm:ss" successfully created with location=[0.2, 0.4, 0.1, 0.03], submit_function=<function end_date_limit_submitted at 0x00000154539E8D60>, label_pos='top'
+[DEBUG][2024-07-23 23:58:09,590] PRAISE-PEK: Button "Update All" successfully created with location=[0.9349999999999999, 0.4, 0.045, 0.03], clicked_function=<function update_all at 0x00000154564CB880>
+[DEBUG][2024-07-23 23:58:09,594] PRAISE-PEK: Button "Export PEK Data" successfully created with location=[0.9349999999999999, 0.45, 0.045, 0.03], clicked_function=<function update_all at 0x00000154564CB880>
+[DEBUG][2024-07-23 23:58:09,598] PRAISE-PEK: Button "Save Current Fig" successfully created with location=[0.9349999999999999, 0.35, 0.045, 0.03], clicked_function=<function save_fig_pressed at 0x00000154564CADE0>
+[DEBUG][2024-07-23 23:58:09,604] PRAISE-PEK: Button "Paste Clicked X" successfully created with location=[0.1, 0.34, 0.05999999999999999, 0.030000000000000027], clicked_function=<function paste_x_start_limit_pressed at 0x00000154564CAB60>
+[DEBUG][2024-07-23 23:58:09,609] PRAISE-PEK: Button "Paste Clicked X" successfully created with location=[0.22, 0.34, 0.06000000000000003, 0.030000000000000027], clicked_function=<function paste_x_end_limit_pressed at 0x00000154564CAC00>
+[DEBUG][2024-07-23 23:58:09,614] PRAISE-PEK: Button "Limit with PEK data?" successfully created with location=[0.65, 0.25, 0.05, 0.02], clicked_function=<function toggle_limit_map_datapoints_pressed at 0x00000154564CAD40>
+[DEBUG][2024-07-23 23:58:09,623] PRAISE-PEK: Button "PEK 42" successfully created with location=[0.9349999999999999, 0.02, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_PEK_button.clicked of <__main__.setup_plots.<locals>.create_PEK_button object at 0x0000015458E5DFD0>>
+[INFO][2024-07-23 23:58:09,623] PRAISE-PEK: Button "PEK 42" was toggled to True
+[DEBUG][2024-07-23 23:58:09,627] PRAISE-PEK: Button "PEK 24" successfully created with location=[0.9349999999999999, 0.06, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_PEK_button.clicked of <__main__.setup_plots.<locals>.create_PEK_button object at 0x0000015457C25510>>
+[DEBUG][2024-07-23 23:58:09,631] PRAISE-PEK: Button "PEK 35" successfully created with location=[0.9349999999999999, 0.1, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_PEK_button.clicked of <__main__.setup_plots.<locals>.create_PEK_button object at 0x0000015458F0D550>>
+[INFO][2024-07-23 23:58:09,631] PRAISE-PEK: Button "PEK 35" was toggled to True
+[DEBUG][2024-07-23 23:58:09,636] PRAISE-PEK: Button "PEK 34" successfully created with location=[0.9349999999999999, 0.13999999999999999, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_PEK_button.clicked of <__main__.setup_plots.<locals>.create_PEK_button object at 0x00000154588E0A10>>
+[DEBUG][2024-07-23 23:58:09,640] PRAISE-PEK: Button "PM2_5" successfully created with location=[0.02, 0.02, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x00000154588B0F10>>
+[DEBUG][2024-07-23 23:58:09,644] PRAISE-PEK: Button "PM10" successfully created with location=[0.02, 0.06, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x0000015457A9AA50>>
+[INFO][2024-07-23 23:58:09,644] PRAISE-PEK: Button "PM10" was toggled to True
+[DEBUG][2024-07-23 23:58:09,648] PRAISE-PEK: Button "PM1" successfully created with location=[0.02, 0.1, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x0000015458A0EC90>>
+[DEBUG][2024-07-23 23:58:09,652] PRAISE-PEK: Button "CO" successfully created with location=[0.02, 0.13999999999999999, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x0000015457C82E10>>
+[DEBUG][2024-07-23 23:58:09,657] PRAISE-PEK: Button "NO2" successfully created with location=[0.02, 0.18, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001545854D0D0>>
+[INFO][2024-07-23 23:58:09,657] PRAISE-PEK: Button "NO2" was toggled to True
+[DEBUG][2024-07-23 23:58:09,661] PRAISE-PEK: Button "O3" successfully created with location=[0.02, 0.22, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x00000154589B6310>>
+[DEBUG][2024-07-23 23:58:09,666] PRAISE-PEK: Button "VOC" successfully created with location=[0.02, 0.26, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x000001545857F590>>
+[DEBUG][2024-07-23 23:58:09,671] PRAISE-PEK: Button "Humidity" successfully created with location=[0.02, 0.30000000000000004, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x0000015458BE7410>>
+[DEBUG][2024-07-23 23:58:09,676] PRAISE-PEK: Button "Temperature" successfully created with location=[0.02, 0.34, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x0000015457F1CC50>>
+[DEBUG][2024-07-23 23:58:09,680] PRAISE-PEK: Button "BatVol" successfully created with location=[0.02, 0.38, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x0000015457F1F950>>
+[DEBUG][2024-07-23 23:58:09,685] PRAISE-PEK: Button "CO2" successfully created with location=[0.02, 0.42000000000000004, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x0000015458B97010>>
+[DEBUG][2024-07-23 23:58:09,690] PRAISE-PEK: Button "NO2_Raw" successfully created with location=[0.02, 0.46, 0.045, 0.03], clicked_function=<bound method setup_plots.<locals>.create_element_button.clicked of <__main__.setup_plots.<locals>.create_element_button object at 0x0000015457E62790>>
+[INFO][2024-07-23 23:58:09,690] PRAISE-PEK: Setup plot in 0.654304027557373 seconds
+[DEBUG][2024-07-23 23:58:09,727] PRAISE-PEK: Map subplot updated in 0.0368497371673584 seconds
+[DEBUG][2024-07-23 23:58:09,757] PRAISE-PEK: Data subplot updated in 0.03005075454711914 seconds
+[INFO][2024-07-23 23:58:09,757] PRAISE-PEK: Successfully initiated program in 5.305548667907715 seconds
+[INFO][2024-07-23 23:58:15,416] PRAISE-PEK: Button "PEK 34" was toggled to False
+[DEBUG][2024-07-23 23:58:15,451] PRAISE-PEK: Map subplot updated in 0.03478884696960449 seconds
+[DEBUG][2024-07-23 23:58:15,476] PRAISE-PEK: Data subplot updated in 0.024862051010131836 seconds
+[INFO][2024-07-23 23:58:17,100] PRAISE-PEK: Button "NO2" was toggled to False
+[DEBUG][2024-07-23 23:58:17,137] PRAISE-PEK: Map subplot updated in 0.036580562591552734 seconds
+[DEBUG][2024-07-23 23:58:17,162] PRAISE-PEK: Data subplot updated in 0.024801254272460938 seconds
+[INFO][2024-07-23 23:58:21,940] PRAISE-PEK: Button "PM2_5" was toggled to True
+[DEBUG][2024-07-23 23:58:21,980] PRAISE-PEK: Map subplot updated in 0.03937578201293945 seconds
+[DEBUG][2024-07-23 23:58:22,050] PRAISE-PEK: Data subplot updated in 0.07024812698364258 seconds
+[INFO][2024-07-23 23:58:23,055] PRAISE-PEK: Button "PM10" was toggled to False
+[DEBUG][2024-07-23 23:58:23,090] PRAISE-PEK: Map subplot updated in 0.035123586654663086 seconds
+[DEBUG][2024-07-23 23:58:23,114] PRAISE-PEK: Data subplot updated in 0.024057865142822266 seconds
+[INFO][2024-07-23 23:58:24,587] PRAISE-PEK: Button "PM10" was toggled to True
+[DEBUG][2024-07-23 23:58:24,628] PRAISE-PEK: Map subplot updated in 0.041100263595581055 seconds
+[DEBUG][2024-07-23 23:58:24,667] PRAISE-PEK: Data subplot updated in 0.03754472732543945 seconds
+[INFO][2024-07-23 23:58:33,111] PRAISE-PEK: Button "PM2_5" was toggled to False
+[DEBUG][2024-07-23 23:58:33,146] PRAISE-PEK: Map subplot updated in 0.03576350212097168 seconds
+[DEBUG][2024-07-23 23:58:33,168] PRAISE-PEK: Data subplot updated in 0.02184891700744629 seconds
+[INFO][2024-07-23 23:58:34,576] PRAISE-PEK: Button "PM10" was toggled to False
+[DEBUG][2024-07-23 23:58:34,620] PRAISE-PEK: Map subplot updated in 0.04453086853027344 seconds
+[DEBUG][2024-07-23 23:58:34,628] PRAISE-PEK: Data subplot updated in 0.0065479278564453125 seconds
+[INFO][2024-07-23 23:58:35,822] PRAISE-PEK: Button "O3" was toggled to True
+[DEBUG][2024-07-23 23:58:35,860] PRAISE-PEK: Map subplot updated in 0.038240671157836914 seconds
+[DEBUG][2024-07-23 23:58:35,887] PRAISE-PEK: Data subplot updated in 0.02759408950805664 seconds
+[INFO][2024-07-23 23:58:39,476] PRAISE-PEK: Button "O3" was toggled to False
+[DEBUG][2024-07-23 23:58:39,514] PRAISE-PEK: Map subplot updated in 0.0383603572845459 seconds
+[DEBUG][2024-07-23 23:58:39,518] PRAISE-PEK: Data subplot updated in 0.00390934944152832 seconds
+[INFO][2024-07-23 23:58:40,063] PRAISE-PEK: Button "NO2" was toggled to True
+[DEBUG][2024-07-23 23:58:40,101] PRAISE-PEK: Map subplot updated in 0.036780595779418945 seconds
+[DEBUG][2024-07-23 23:58:40,125] PRAISE-PEK: Data subplot updated in 0.024289369583129883 seconds
+[INFO][2024-07-23 23:58:43,700] PRAISE-PEK: Button "PEK 34" was toggled to True
+[DEBUG][2024-07-23 23:58:43,736] PRAISE-PEK: Map subplot updated in 0.036835432052612305 seconds
+[DEBUG][2024-07-23 23:58:43,765] PRAISE-PEK: Data subplot updated in 0.02771162986755371 seconds
+[INFO][2024-07-23 23:58:44,741] PRAISE-PEK: Button "PEK 34" was toggled to False
+[DEBUG][2024-07-23 23:58:44,780] PRAISE-PEK: Map subplot updated in 0.03862309455871582 seconds
+[DEBUG][2024-07-23 23:58:44,806] PRAISE-PEK: Data subplot updated in 0.025587081909179688 seconds
+[INFO][2024-07-23 23:58:47,740] PRAISE-PEK: Button "PM10" was toggled to True
+[DEBUG][2024-07-23 23:58:47,846] PRAISE-PEK: Map subplot updated in 0.10579037666320801 seconds
+[DEBUG][2024-07-23 23:58:47,870] PRAISE-PEK: Data subplot updated in 0.022644996643066406 seconds
+[INFO][2024-07-23 23:58:49,398] PRAISE-PEK: Button "NO2" was toggled to False
+[DEBUG][2024-07-23 23:58:49,433] PRAISE-PEK: Map subplot updated in 0.03587508201599121 seconds
+[DEBUG][2024-07-23 23:58:49,456] PRAISE-PEK: Data subplot updated in 0.02290964126586914 seconds
+[INFO][2024-07-23 23:58:58,525] PRAISE-PEK: Button "PEK 34" was toggled to True
+[DEBUG][2024-07-23 23:58:58,561] PRAISE-PEK: Map subplot updated in 0.03614330291748047 seconds
+[DEBUG][2024-07-23 23:58:58,587] PRAISE-PEK: Data subplot updated in 0.025719642639160156 seconds
+[INFO][2024-07-23 23:58:59,642] PRAISE-PEK: Button "PEK 34" was toggled to False
+[DEBUG][2024-07-23 23:58:59,676] PRAISE-PEK: Map subplot updated in 0.03387951850891113 seconds
+[DEBUG][2024-07-23 23:58:59,698] PRAISE-PEK: Data subplot updated in 0.022315263748168945 seconds
