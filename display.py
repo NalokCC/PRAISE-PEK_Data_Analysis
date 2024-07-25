@@ -11,10 +11,10 @@ warnings.simplefilter('ignore')
 
 # default variables
 logging_level = logging.DEBUG
-toggled_PEKs = ['35', '42']
-toggled_elements = ['PM10','NO2']
+toggled_PEKs = ['35']
+toggled_elements = ['AR']
 xticks = 30
-default_start_date, default_end_date = '2024-07-09 00:00:00', '2024-07-09 23:59:59'
+default_start_date, default_end_date = '2024-07-09 00:00:00', '2024-07-11 23:59:59'
 limit_map_datapoints = False
 
 RegC_NO2 = 0.0004462559
@@ -22,6 +22,12 @@ RegC_SO2 = 0.0001393235
 RegC_O3 = 0.0005116328
 RegC_PM10 = 0.0002821751
 RegC_PM2_5 = 0.0002180567
+
+IR_baseline_NO2 = 0.857510013618537
+IR_baseline_O3 = 0.568442103625238
+IR_baseline_PM10 = 0.727655350442508
+IR_baseline_PM2_5 = 0.831963620181844
+IR_baseline_SO2 = 1
 
 # setup logging
 os.remove('logs/recentlog.log')
@@ -110,7 +116,7 @@ def save_fig_pressed(event):
 ##### GENERAL #####
 def exists(var_as_string):
     try:
-        exec(f'x = {var_as_string}')
+        x = globals()[f"{var_as_string}"]
         return True
     except:
         return False
@@ -173,7 +179,7 @@ def unpack_PEK_data():
             all_elements.append(element_name) if element_name not in all_elements and 'str' not in str(type(PEK_data[ii][0])) else None
             # using the information from https://www.breeze-technologies.de/blog/air-pollution-how-to-convert-between-mgm3-µgm3-ppm-ppb/ 
             mod = 1.15 if element_name == 'CO' else 1.88 if element_name == 'NO2' else 1.96 if element_name == 'O3' else 1
-            element_data = [int(val)/mod for val in PEK_data[ii]] if 'str' not in str(type(PEK_data[ii][0])) else PEK_data[ii]
+            element_data = [int(val)*mod for val in PEK_data[ii]] if 'str' not in str(type(PEK_data[ii][0])) else PEK_data[ii]
             globals()[f"PEK_{PEK_number}_{element_name}"] = element_data
         logger.debug(f'Read sheet "{sheet_name}" in {time.time()-ST_read_sheet} seconds')
     logger.info(f'Unpacked PEK data in {time.time()-ST_unpack_PEK_data} seconds')
@@ -201,10 +207,10 @@ def unpack_ADMS_data():
     unpacked_data += [DT_to_seconds(time, 'YYYYMMDDhh') for time in unpacked_data[0]]
     for i, column_name in enumerate(list(ADMS_csv.columns)):
         column_name = 'ADMS_' + column_name.replace('(','_').replace(')','').replace('%','_pct').replace('.','_').replace('/','_').lower()
-        exec(f'globals()["{column_name}"] = unpacked_data[i]')
-        if 'ug_m3' in column_name:
+        globals()[f"{column_name}"] = unpacked_data[i]
+        if 'ug_m3' in column_name or column_name == 'ADMS_ar_pct':
             ADMS_data_name_array.append(column_name)
-            exec(f'ADMS_data_array.append({column_name})')
+            ADMS_data_array.append(globals()[f"{column_name}"])
     globals()['ADMS_seconds_times'] = [DT_to_seconds(time, 'YYYYMMDDhh') for time in unpacked_data[0]]
     logger.info(f'Unpacked ADMS data in {time.time()-ST_unpack_ADMS_data} seconds. {ADMS_data_name_array=}')
 
@@ -244,7 +250,7 @@ def clean_PRAISE_data(angle_threshold=20):
         PRAISE_start_dates, PRAISE_end_dates, PRAISE_start_seconds, PRAISE_end_seconds, PRAISE_lats, PRAISE_lons = limit_data_in_lists([PRAISE_start_dates, PRAISE_end_dates, PRAISE_start_seconds, PRAISE_end_seconds, PRAISE_lats, PRAISE_lons], PRAISE_outliers)
     logger.info(f'Cleaned PRAISE data in {time.time()-ST_clean_PRAISE_data} seconds and removed {total_indicies_removed}/{total_indices} indices')
 
-def simplify_PRAISE_data(chunk_size=6, skip_mod=1, variance_threshold=.01, distance_threshold=0.08):
+def simplify_PRAISE_data(chunk_size=6, skip_mod=1, variance_threshold=.01, distance_threshold=0.06):
     ST_simplify_PRAISE_data = time.time()
     global low_variance_coords, low_variance_lats, low_variance_lons
     loc_lats, loc_lons = PRAISE_lats, PRAISE_lons
@@ -285,9 +291,8 @@ def average_PEK_data(time_chunk_s=1200):
     for PEK in all_PEKs:
         for element in all_elements:
             try:
-                global data, data_seconds
-                exec(f'globals()["data"] = PEK_{PEK}_{element}')
-                exec(f'globals()["data_seconds"] = PEK_{PEK}_DT_seconds')
+                data = globals()[f"PEK_{PEK}_{element}"]
+                data_seconds = globals()[f"PEK_{PEK}_DT_seconds"]
             except:
                 continue
             starting_second = data_seconds[0]
@@ -330,33 +335,69 @@ def match_ADMS_data():
         
     logger.info(f'Matched ADMS data in {time.time()-ST_match_ADMS_data} seconds')
 
-def calculate_PEK_ARExposure(PEKs):
+def calculate_PEK_ARExposure(PEKs=35):
     ST_calculate_PEK_ARExposures = time.time()
+    global test_coords_lime, test_coords_light_blue
+    test_coords_lime, test_coords_light_blue = [], []
     PEKs = [PEKs] if type(PEKs) == type(int(0)) else PEKs
     for PEK in PEKs:
-        global PEK_ARExposures
-        e_exp = lambda exp: e**exp
-
         NO2_data = globals()[f"PEK_{PEK}_NO2"]
         O3_data = globals()[f"PEK_{PEK}_O3"]
         PM10_data = globals()[f"PEK_{PEK}_PM10"]
         PM2_5_data = globals()[f"PEK_{PEK}_PM2_5"]
         seconds_time_data = globals()[f"PEK_{PEK}_DT_seconds"]
+        date_time_data = globals()[f"PEK_{PEK}_DateTime"]
 
         starting_second = seconds_time_data[0]
-        for hour, _ in enumerate(range(0,int((seconds_time_data[-1]-seconds_time_data[0])/3600))):
-            lb, ub = seconds_time_data.index(min(seconds_time_data, key=lambda x:abs(x-starting_second*hour*3600))), seconds_time_data.index(min(seconds_time_data, key=lambda x:abs(x-starting_second*(hour+1)*3600)))
-            print(lb)
-        print(len(NO2_data[::100]))
-        print(len(NO2_data))
-        # THRA_NO2 = [sum(TH_values)/len(TH_values) for hour, TH_values in enumerate(NO2_data)]
+        RA_conc_NO2, RA_conc_O3, RA_conc_PM10, RA_conc_PM2_5, RA_conc_SO2 = [], [], [], [], []
+        RA_AR_NO2, RA_AR_O3, RA_AR_PM10, RA_AR_PM2_5, RA_AR_SO2 = [], [], [], [], []
+        RA_AR, RA_AR_seconds_times, RA_AR_date_times = [], [], []
+        for hour in range(0,int((seconds_time_data[-1]-seconds_time_data[0])/3600)):
+            curr_hour_seconds_time = starting_second+(hour*3600)
+            RA_seconds = 10800 # how far apart the rolling average is. default is 10800 (10800 seconds, or 3 hours)
+            curr_hour_index = seconds_time_data.index(min(seconds_time_data, key=lambda x:abs(x-curr_hour_seconds_time)))
+            prev_hour_index = seconds_time_data.index(min(seconds_time_data, key=lambda x:abs(x-curr_hour_seconds_time+RA_seconds/2)))
+            next_hour_index = seconds_time_data.index(min(seconds_time_data, key=lambda x:abs(x-curr_hour_seconds_time-RA_seconds/2)))
 
-        # PEK_ar_NO2 = 
-        # PEK_ar_O3 =
-        # PEK_ar_PM10 =
-        # PEK_ar_PM2_5 = 
-    print(time.time()-ST_calculate_PEK_ARExposures)
-    quit()
+            PRAISE_index = PRAISE_start_seconds.index(min(PRAISE_start_seconds, key=lambda x:abs(x-curr_hour_seconds_time)))
+            lat1, lon1 = PRAISE_lats[PRAISE_index], PRAISE_lons[PRAISE_index]
+            distances = [coords_to_km_distance(lat1, lon1, lat2, lon2) for lat2, lon2 in low_variance_coords]
+            indoors = True if min(distances) < 0.05 else False
+
+            index_diff = next_hour_index-prev_hour_index
+            THRA_avg = lambda data: sum(data[prev_hour_index:next_hour_index])/index_diff
+            NO2_conc = THRA_avg(NO2_data)
+            O3_conc = THRA_avg(O3_data)
+            PM10_conc = THRA_avg(PM10_data)
+            PM2_5_conc = THRA_avg(PM2_5_data)
+            SO2_conc = 2 # assuming 2 microg/m^3
+
+            RA_conc_NO2.append(NO2_conc)
+            RA_conc_O3.append(O3_conc)
+            RA_conc_PM10.append(PM10_conc)
+            RA_conc_PM2_5.append(PM2_5_conc)
+            RA_conc_SO2.append(SO2_conc)
+            
+            calc_AR = lambda regc, conc, IR_baseline: (e**(regc * conc) - 1) / [1 if not indoors else IR_baseline][0]
+            NO2_AR = calc_AR(RegC_NO2, NO2_conc, IR_baseline_NO2)
+            O3_AR = calc_AR(RegC_O3, O3_conc, IR_baseline_O3)
+            PM10_AR = calc_AR(RegC_PM10, PM10_conc, IR_baseline_PM10)
+            PM2_5_AR = calc_AR(RegC_PM2_5, PM2_5_conc, IR_baseline_PM2_5)
+            SO2_AR = calc_AR(RegC_SO2, SO2_conc, IR_baseline_SO2)
+
+            RA_AR_NO2.append(NO2_AR)
+            RA_AR_O3.append(O3_AR)
+            RA_AR_PM10.append(PM10_AR)
+            RA_AR_PM2_5.append(PM2_5_AR)
+            RA_AR_SO2.append(SO2_AR)
+
+            RA_AR.append((NO2_AR + O3_AR + SO2_AR + max([PM10_AR, PM2_5_AR])) * 100)
+            RA_AR_seconds_times.append(seconds_time_data[curr_hour_index])
+            RA_AR_date_times.append(date_time_data[curr_hour_index])
+        globals()[f"PEK_{PEK}_AR"] = RA_AR
+        globals()[f"PEK_{PEK}_AR_seconds_times"] = RA_AR_seconds_times
+        globals()[f"PEK_{PEK}_AR_date_times"] = RA_AR_date_times
+    logger.info(f'Calculated AR% in {time.time()-ST_calculate_PEK_ARExposures} seconds.')
 
 ##### UPDATING SUBLOPTS #####
 def update_data_subplot(drawADMS=True):
@@ -370,15 +411,16 @@ def update_data_subplot(drawADMS=True):
         for ii, element in enumerate(toggled_elements): # iterate through each element for each PEK toggled
             try:
                 # pull data PEK data
-                exec(f'globals()["element_data"] = PEK_{PEK}_{element}')
-                exec(f'globals()["seconds_times"] = list(PEK_{PEK}_DT_seconds)')
-                exec(f'globals()["date_times"] = list(PEK_{PEK}_DateTime)')
+                element_data = globals()[f"PEK_{PEK}_{element}"]
+                seconds_times = list(globals()[f"PEK_{PEK}_DT_seconds"]) if element != 'AR' else list(globals()[f"PEK_{PEK}_AR_seconds_times"])
+                date_times = globals()[f"PEK_{PEK}_DateTime"] if element != 'AR' else globals()[f"PEK_{PEK}_AR_date_times"]
+                
                 sd_index_PEK = seconds_times.index(min(seconds_times, key=lambda x:abs(x-start_date_limit_second_time))) if start_date_limit_second_time != 0 else 0
                 ed_index_PEK = seconds_times.index(min(seconds_times, key=lambda x:abs(x-end_date_limit_second_time))) if end_date_limit_second_time != 0 else len(seconds_times)-1
                 element_data, seconds_times, date_times = element_data[sd_index_PEK:ed_index_PEK], seconds_times[sd_index_PEK:ed_index_PEK], date_times[sd_index_PEK:ed_index_PEK]
 
                 # plot PEK data
-                data_subplot.plot(seconds_times, element_data, label=f'{element} | PEK {PEK}') 
+                data_subplot.plot(seconds_times, element_data, label=f'{element} | PEK {PEK}')
 
                 # plot ADMS data if enabled
                 if drawADMS:
@@ -429,6 +471,8 @@ def update_map_subplot():
 
     map_subplot.plot(lons, lats, marker='o', markersize=1, transform=proj, color = 'red') 
     [map_subplot.plot(lon, lat, marker='o', markersize=8, transform=proj, color='orange', alpha=.6) for lat, lon in low_variance_coords]
+    [map_subplot.plot(lon, lat, marker='o', markersize=6, transform=proj, color='lime') for lat, lon in test_coords_lime]
+    [map_subplot.plot(lon, lat, marker='o', markersize=6, transform=proj, color='lightblue') for lat, lon in test_coords_light_blue]
 
     plt.draw()
     logger.debug(f'Map subplot updated in {time.time()-ST_update_map_subplot} seconds')
@@ -556,11 +600,11 @@ def setup_plots(**kwargs):
     # setup PEK buttons
     for i, sheet_name in enumerate(pd.ExcelFile('data/export.xlsx').sheet_names):
         PEK_number = sheet_name[-2:]
-        exec(f'globals()["PEK_{PEK_number}_button"] = create_PEK_button(PEK_number, [.98-button_xdim, 0.02+(button_ydim+0.01)*i, button_xdim, button_ydim])')
+        globals()[f"PEK_{PEK_number}_button"] = create_PEK_button(PEK_number, [.98-button_xdim, 0.02+(button_ydim+0.01)*i, button_xdim, button_ydim])
 
     # setup element buttons
-    for i, element in enumerate(['PM2_5', 'PM10', 'PM1', 'CO', 'NO2', 'O3', 'VOC', 'Humidity', 'Temperature', 'BatVol', 'CO2', 'NO2_Raw']):
-        exec(f'globals()["element_{element}_button"] = create_element_button(element, [.02, 0.02+(button_ydim+0.01)*i, button_xdim, button_ydim])')
+    for i, element in enumerate(['PM2_5', 'PM10', 'PM1', 'CO', 'NO2', 'O3', 'VOC', 'Humidity', 'Temperature', 'BatVol', 'CO2', 'NO2_Raw', 'AR']):
+        globals()[f"element_{element}_button"] = create_element_button(element, [.02, 0.02+(button_ydim+0.01)*i, button_xdim, button_ydim])
 
     # set mouse click event
     def mouse_click_event(event):
@@ -593,20 +637,20 @@ if __name__ == '__main__':
     # set default code variables
     start_date_limit_second_time = DT_to_seconds(default_start_date) if default_start_date != None else 0
     end_date_limit_second_time = DT_to_seconds(default_end_date) if default_end_date != None else 0
-    button_xdim, button_ydim = 0.045, 0.03
+    button_xdim, button_ydim = 0.04, 0.025
     clicked_x_coord = 0
 
     # data management
-    unpack_PEK_data()
-    average_PEK_data(60)
-    calculate_PEK_ARExposure(35)
-
     unpack_PRAISE_data()
     clean_PRAISE_data()
     simplify_PRAISE_data()
-    
+
     unpack_ADMS_data()
     match_ADMS_data()
+
+    unpack_PEK_data()
+    # average_PEK_data(60)
+    calculate_PEK_ARExposure()
     # create_spreadsheet_praise_specifics('quit')
     
     # visual setup
