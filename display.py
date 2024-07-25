@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from matplotlib.widgets import Button, TextBox
-from math import acos, asin, cos, sin, dist, pi, degrees, sqrt, radians
+from math import acos, asin, cos, sin, dist, pi, degrees, sqrt, radians, e
 
 # disable annoying warnings
 warnings.simplefilter('ignore')
@@ -16,6 +16,12 @@ toggled_elements = ['PM10','NO2']
 xticks = 30
 default_start_date, default_end_date = '2024-07-09 00:00:00', '2024-07-09 23:59:59'
 limit_map_datapoints = False
+
+RegC_NO2 = 0.0004462559
+RegC_SO2 = 0.0001393235
+RegC_O3 = 0.0005116328
+RegC_PM10 = 0.0002821751
+RegC_PM2_5 = 0.0002180567
 
 # setup logging
 os.remove('logs/recentlog.log')
@@ -324,6 +330,34 @@ def match_ADMS_data():
         
     logger.info(f'Matched ADMS data in {time.time()-ST_match_ADMS_data} seconds')
 
+def calculate_PEK_ARExposure(PEKs):
+    ST_calculate_PEK_ARExposures = time.time()
+    PEKs = [PEKs] if type(PEKs) == type(int(0)) else PEKs
+    for PEK in PEKs:
+        global PEK_ARExposures
+        e_exp = lambda exp: e**exp
+
+        NO2_data = globals()[f"PEK_{PEK}_NO2"]
+        O3_data = globals()[f"PEK_{PEK}_O3"]
+        PM10_data = globals()[f"PEK_{PEK}_PM10"]
+        PM2_5_data = globals()[f"PEK_{PEK}_PM2_5"]
+        seconds_time_data = globals()[f"PEK_{PEK}_DT_seconds"]
+
+        starting_second = seconds_time_data[0]
+        for hour, _ in enumerate(range(0,int((seconds_time_data[-1]-seconds_time_data[0])/3600))):
+            lb, ub = seconds_time_data.index(min(seconds_time_data, key=lambda x:abs(x-starting_second*hour*3600))), seconds_time_data.index(min(seconds_time_data, key=lambda x:abs(x-starting_second*(hour+1)*3600)))
+            print(lb)
+        print(len(NO2_data[::100]))
+        print(len(NO2_data))
+        # THRA_NO2 = [sum(TH_values)/len(TH_values) for hour, TH_values in enumerate(NO2_data)]
+
+        # PEK_ar_NO2 = 
+        # PEK_ar_O3 =
+        # PEK_ar_PM10 =
+        # PEK_ar_PM2_5 = 
+    print(time.time()-ST_calculate_PEK_ARExposures)
+    quit()
+
 ##### UPDATING SUBLOPTS #####
 def update_data_subplot(drawADMS=True):
     ST_update_data_subplot = time.time()
@@ -416,7 +450,7 @@ def setup_plots(**kwargs):
 
     # pop kwargs
     font_size = kwargs.pop('font_size', 6)
-    line_width = kwargs.pop('line_width', .4)
+    line_width = kwargs.pop('line_width', .8)
     tight_layout_enabled = kwargs.pop('tight_layout_enabled', True)
     auto_fullscreen = kwargs.pop('auto_fullscreen', False)
 
@@ -564,7 +598,8 @@ if __name__ == '__main__':
 
     # data management
     unpack_PEK_data()
-    average_PEK_data()
+    average_PEK_data(60)
+    calculate_PEK_ARExposure(35)
 
     unpack_PRAISE_data()
     clean_PRAISE_data()
