@@ -556,7 +556,7 @@ def setup_plots(**kwargs):
     paste_x_end_limit_button = create_button('Paste Clicked X', [end_date_limit_textbox.pos.x0+.02,end_date_limit_textbox.pos.y0-.06,
                                                end_date_limit_textbox.pos.x1-end_date_limit_textbox.pos.x0-.04,
                                                end_date_limit_textbox.pos.y1-end_date_limit_textbox.pos.y0], paste_x_end_limit_pressed)
-    toggle_limit_map_datapoints_button = create_button('Limit with PEK data?', [0.65,0.25,0.05,0.02], toggle_limit_map_datapoints_pressed, 'red')
+    toggle_limit_map_datapoints_button = create_button('Limit with PEK data?', [0.7,0.2,0.05,0.02], toggle_limit_map_datapoints_pressed, 'red')
 
     # create classes to procedurally make the pek and element buttons easier
     class create_PEK_button:
