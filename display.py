@@ -341,12 +341,11 @@ def match_ADMS_data():
         
     logger.info(f'Matched ADMS data in {time.time()-ST_match_ADMS_data} seconds')
 
-def calculate_PEK_ARExposure(PEKs=35):
+def calculate_PEK_ARExposure():
     ST_calculate_PEK_ARExposures = time.time()
     global test_coords_lime, test_coords_light_blue
     test_coords_lime, test_coords_light_blue = [], []
-    PEKs = [PEKs] if type(PEKs) == type(int(0)) else PEKs
-    for PEK in PEKs:
+    for PEK in all_PEKs:
         NO2_data = globals()[f"PEK_{PEK}_NO2"]
         O3_data = globals()[f"PEK_{PEK}_O3"]
         PM10_data = globals()[f"PEK_{PEK}_PM10"]
