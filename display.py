@@ -1,10 +1,10 @@
 import time, logging, cartopy, matplotlib, warnings, os
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from matplotlib.widgets import Button, TextBox
 from math import acos, asin, cos, sin, dist, pi, degrees, sqrt, radians, e
+from export_PEK_data import export_PEK_data
 
 # disable annoying warnings
 warnings.simplefilter('ignore')
@@ -43,6 +43,12 @@ logger.addHandler(file_handler)
 ############################
 ##### WIDGET FUNCTIONS #####
 ############################
+
+def export_PEK_data_pressed(event):
+    ST_export_PEK_data = time.time()
+    logger.info(f'PEKs {all_PEKs} are being exported...')
+    export_PEK_data(all_PEKs)
+    logger.info(f'PEKs {all_PEKs} have been exported in {time.time()-ST_export_PEK_data} seconds.')
 
 def xticks_submitted(inputted_xticks):
     global xticks
@@ -548,7 +554,7 @@ def setup_plots(**kwargs):
     global force_update_plots_button, export_PEK_data_button, save_fig_button, paste_x_start_limit_button, paste_x_end_limit_button, toggle_limit_map_datapoints_button
     # generate_map_procedurally_button = create_button('Generate Map Procedurally', [0.7,0.1,button_xdim,button_ydim], dummy)
     force_update_plots_button = create_button('Update All', [0.98-button_xdim,0.4,button_xdim,button_ydim], update_all)
-    export_PEK_data_button = create_button('Export PEK Data', [0.98-button_xdim,0.45,button_xdim,button_ydim], update_all)
+    export_PEK_data_button = create_button('Export PEK Data', [0.98-button_xdim,0.45,button_xdim,button_ydim], export_PEK_data_pressed)
     save_fig_button = create_button('Save Current Fig', [0.98-button_xdim,0.35,button_xdim,button_ydim], save_fig_pressed)
     paste_x_start_limit_button = create_button('Paste Clicked X', [start_date_limit_textbox.pos.x0+.02,start_date_limit_textbox.pos.y0-.06,
                                                start_date_limit_textbox.pos.x1-start_date_limit_textbox.pos.x0-.04,
