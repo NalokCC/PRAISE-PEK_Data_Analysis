@@ -10,19 +10,22 @@ from export_PEK_data import export_PEK_data
 warnings.simplefilter('ignore')
 
 # default variables
-logging_level = logging.DEBUG
-toggled_PEKs = ['35']
-toggled_elements = ['AR']
-xticks = 30
-default_start_date, default_end_date = '2024-07-09 00:00:00', '2024-07-11 23:59:59'
-limit_map_datapoints = False
+logging_level = logging.INFO # set the debug level
+toggled_PEKs = ['35'] # set dafault PEKs to view on startup
+toggled_elements = ['AR'] # set default elements to view on startup
+xticks = 30 # set the default number of ticks to appear on the data subplot
+default_start_date, default_end_date = '2024-07-09 00:00:00', '2024-07-11 23:59:59' # set the default time chunk to analyze
+limit_map_datapoints = False # set whether or not the map subplot will be limited by the start and end dates
+store_old_log = False # set whether or not to save the previous log file that was generated
 
+# Default regression coefficients 
 RegC_NO2 = 0.0004462559
 RegC_SO2 = 0.0001393235
 RegC_O3 = 0.0005116328
 RegC_PM10 = 0.0002821751
 RegC_PM2_5 = 0.0002180567
 
+# Default infiltration rates # NOTE WILL IMPROVE ACCURACY LATER BY ADDING THE ME OF WINDOW, AC, ETC
 IR_baseline_NO2 = 0.857510013618537
 IR_baseline_O3 = 0.568442103625238
 IR_baseline_PM10 = 0.727655350442508
@@ -30,7 +33,7 @@ IR_baseline_PM2_5 = 0.831963620181844
 IR_baseline_SO2 = 1
 
 # setup logging
-os.remove('logs/recentlog.log')
+os.remove('logs/recentlog.log') if not store_old_log else os.rename(f'logs/recentlog.log', f'logs/{int(time.time())}log.log')
 logger = logging.getLogger('PRAISE-PEK')
 logger.setLevel(logging_level) 
 
